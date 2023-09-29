@@ -54,18 +54,16 @@ public class PatientController {
         patientService.updatePatronymic(patientService.findByFullName(firstName, lastName, patronymic).getId(), newPatronymic);
     }
 
-    public void updateAgeByByFullName(String firstName, String lastName, String patronymic, int age) {
+    public void updateAgeByFullName(String firstName, String lastName, String patronymic, int age) {
         patientService.updateAge(patientService.findByFullName(firstName, lastName, patronymic).getId(), age);
     }
 
-    public void updateSexByByFullName(String firstName, String lastName, String patronymic, Sex sex) {
+    public void updateSexByFullName(String firstName, String lastName, String patronymic, Sex sex) {
         patientService.updateSex(patientService.findByFullName(firstName, lastName, patronymic).getId(), sex);
     }
 
 
-    public void showPatients() {
-        for (Patient patient : patients) {
-            System.out.println(patient);
-        }
+    public Set<Patient> showPatients() {
+        return patients;
     }
 }

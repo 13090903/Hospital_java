@@ -46,9 +46,15 @@ public class DepartmentController {
         departmentService.removeByName(name);
     }
 
-    public void showDepartments() {
-        for (Department department : departments) {
-            System.out.println(department);
-        }
+    public void updateDepartmentById(int id, String name) {
+        departmentService.updateById(id, name);
+    }
+
+    public void updateDepartmentByName(String name, String newName) {
+        departmentService.updateByName(name, newName);
+    }
+
+    public Set<Department> showDepartments() {
+        return departments;
     }
 }

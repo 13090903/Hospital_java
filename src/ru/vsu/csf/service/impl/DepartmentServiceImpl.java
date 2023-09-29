@@ -41,12 +41,23 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Department removeById(int id) {
+        for (Patient patient : patientRepository.findAll()) {
+            Department d = departmentRepository.findByName(patient.getDepartmentName());
+            if (d.getId() == id) {
+                patient.setDepartmentName(null);
+            }
+        }
         return departmentRepository.deleteById(id);
-        //TODO: remove patients from department
     }
 
     @Override
     public Department removeByName(String name) {
+        for (Patient patient : patientRepository.findAll()) {
+            Department d = departmentRepository.findByName(patient.getDepartmentName());
+            if (d != null && d.getName().equals(name)) {
+                patient.setDepartmentName(null);
+            }
+        }
         return departmentRepository.deleteByName(name);
     }
 
