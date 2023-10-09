@@ -11,8 +11,6 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class Main {
-    private static PatientController patientController;
-    private static DepartmentController departmentController;
 
     static Scanner in = new Scanner(System.in);
 
@@ -31,14 +29,17 @@ public class Main {
 
     static void createPatient(PatientController patientController) {
         System.out.println("Введите ФИО, возраст, пол в формате: Иванов Иван Иванович 18 М");
+        in.nextLine();
         String[] s = in.nextLine().split(" ");
-        patientController.createPatient(s[0], s[1], s[2], Integer.parseInt(s[3]), s[4].equals("М") ? Sex.MALE : Sex.FEMALE);
+        patientController.createPatient(s[1], s[0], s[2], Integer.parseInt(s[3]), s[4].equals("М") ? Sex.MALE : Sex.FEMALE);
+        System.out.println("Успешно!");
     }
 
     static void createDepartment(DepartmentController departmentController) {
         System.out.println("Введите название отделения в формате: Хирургия");
-        String[] s = in.nextLine().split(" ");
+        String[] s = in.next().split(" ");
         departmentController.createDepartment(s[0]);
+        System.out.println("Успешно!");
     }
 
     static void showDepartments(DepartmentController departmentController) {
@@ -67,10 +68,11 @@ public class Main {
             String s2 = in.next();
             departmentController.addPatientByPatientId(s1, Integer.parseInt(s2));
         }
+        System.out.println("Успешно!");
     }
 
     static void removePatientFromDepartment(DepartmentController departmentController) {
-        System.out.println("Если хотите удалить пациента в отделение по его id, введите 1, если по названию, введите 2");
+        System.out.println("Если хотите удалить пациента из отделения по его id, введите 1, если по названию, введите 2");
         String s = in.next();
         if (s.equals("1")) {
             System.out.println("Введите id отделения, затем id пациента в формате: 3 2");
@@ -83,6 +85,7 @@ public class Main {
             String s2 = in.next();
             departmentController.removePatientByPatientId(s1, Integer.parseInt(s2));
         }
+        System.out.println("Успешно!");
     }
 
     static void updateDepartmentName(DepartmentController departmentController) {
@@ -99,6 +102,7 @@ public class Main {
             String s2 = in.next();
             departmentController.updateDepartmentByName(s1, s2);
         }
+        System.out.println("Успешно!");
     }
 
     static void removeDepartment(DepartmentController departmentController) {
@@ -113,6 +117,7 @@ public class Main {
             String s1 = in.next();
             departmentController.removeDepartmentByName(s1);
         }
+        System.out.println("Успешно!");
     }
 
     static void updatePatient(PatientController patientController) {
@@ -134,33 +139,36 @@ public class Main {
             }
         } else if (s1.equals("2")) {
             System.out.println("Введите полное имя пациента в формате: Иванов Иван Иванович");
+            in.nextLine();
             String[] s2 = in.nextLine().split(" ");
             System.out.println("Введите новое значение выбранного поля");
             String s3 = in.next();
             switch (s) {
-                case "1" -> patientController.updateFirstNameByFullName(s2[0], s2[1], s2[2], s3);
-                case "2" -> patientController.updateLastNameByFullName(s2[0], s2[1], s2[2], s3);
-                case "3" -> patientController.updatePatronymicByFullName(s2[0], s2[1], s2[2], s3);
-                case "4" -> patientController.updateAgeByFullName(s2[0], s2[1], s2[2], Integer.parseInt(s3));
-                case "5" -> patientController.updateSexByFullName(s2[0], s2[1], s2[2], s3.equals("М") ? Sex.MALE : Sex.FEMALE);
+                case "1" -> patientController.updateFirstNameByFullName(s2[1], s2[0], s2[2], s3);
+                case "2" -> patientController.updateLastNameByFullName(s2[1], s2[0], s2[2], s3);
+                case "3" -> patientController.updatePatronymicByFullName(s2[1], s2[0], s2[2], s3);
+                case "4" -> patientController.updateAgeByFullName(s2[1], s2[0], s2[2], Integer.parseInt(s3));
+                case "5" -> patientController.updateSexByFullName(s2[1], s2[0], s2[2], s3.equals("М") ? Sex.MALE : Sex.FEMALE);
             }
         }
+        System.out.println("Успешно!");
     }
 
     public static void main(String[] args) {
         Set<Patient> patients = new HashSet<>();
         Set<Department> departments = new HashSet<>();
-        patientController = new PatientController(patients);
-        departmentController = new DepartmentController(departments, patients);
-        System.out.println("Чтобы начать, введите <s>. Чтобы завершить работу, введите <e>. Чтобы посмотреть команды, введите <c>");
+        PatientController patientController = new PatientController(patients);
+        DepartmentController departmentController = new DepartmentController(departments, patients);
+        System.out.println("Чтобы начать, введите <старт>. Чтобы завершить работу, введите <выход>. Чтобы посмотреть команды, введите <команды>");
         String command1 = in.next();
         switch (command1) {
-            case "s" -> {
+            case "старт" -> {
                 while (true) {
+                    System.out.print("Введите команду: ");
                     String command = in.next();
                     switch (command) {
-                        case "e" -> System.exit(0);
-                        case "c" -> showCommands();
+                        case "выход" -> System.exit(0);
+                        case "команды" -> showCommands();
                         case "1" -> createPatient(patientController);
                         case "2" -> createDepartment(departmentController);
                         case "3" -> showPatients(patientController);
@@ -173,8 +181,8 @@ public class Main {
                     }
                 }
             }
-            case "e" -> System.exit(0);
-            case "c" -> showCommands();
+            case "выход" -> System.exit(0);
+            case "команды" -> showCommands();
         }
     }
 }
