@@ -10,7 +10,7 @@ public class Patient {
     private int age;
     private Sex sex;
 
-    private String departmentName;
+    private Department department;
 
     public Patient(int id, String firstName, String lastName, String patronymic, int age, Sex sex) {
         this.id = id;
@@ -69,12 +69,12 @@ public class Patient {
         this.sex = sex;
     }
 
-    public String getDepartmentName() {
-        return departmentName;
+    public Department getDepartment() {
+        return department;
     }
 
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     @Override
@@ -85,6 +85,6 @@ public class Patient {
                 ", patronymic='" + patronymic + '\'' +
                 ", age=" + age +
                 ", sex=" + sex +
-                ", department=" + departmentName;
+                ", department=" + department.getName();
     }
 }

@@ -42,9 +42,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department removeById(int id) {
         for (Patient patient : patientRepository.findAll()) {
-            Department d = departmentRepository.findByName(patient.getDepartmentName());
+            Department d = patient.getDepartment();
             if (d.getId() == id) {
-                patient.setDepartmentName(null);
+                patient.setDepartment(null);
             }
         }
         return departmentRepository.deleteById(id);
@@ -53,9 +53,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public Department removeByName(String name) {
         for (Patient patient : patientRepository.findAll()) {
-            Department d = departmentRepository.findByName(patient.getDepartmentName());
+            Department d = patient.getDepartment();
             if (d != null && d.getName().equals(name)) {
-                patient.setDepartmentName(null);
+                patient.setDepartment(null);
             }
         }
         return departmentRepository.deleteByName(name);
@@ -82,7 +82,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (department.getPatients().contains(patient)) {
             return;
         }
-        patient.setDepartmentName(department.getName());
+        patient.setDepartment(department);
         department.getPatients().add(patient);
         department.setNumberOfPatients(department.getNumberOfPatients() + 1);
     }
@@ -94,7 +94,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (department.getPatients().contains(patient)) {
             department.getPatients().remove(patient);
             department.setNumberOfPatients(department.getNumberOfPatients() - 1);
-            patient.setDepartmentName(null);
+            patient.setDepartment(null);
         }
         //TODO: Иначе может быть бросать ошибку или что то еще делать
     }

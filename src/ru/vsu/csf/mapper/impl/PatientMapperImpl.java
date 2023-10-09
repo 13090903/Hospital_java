@@ -12,7 +12,7 @@ public class PatientMapperImpl implements PatientMapper {
     public Patient fromDto(PatientDto patientDto) {
         Patient patient = new Patient(patientDto.getId(), patientDto.getFirstName(), patientDto.getLastName(), patientDto.getPatronymic(),
                 patientDto.getAge(), patientDto.getSex());
-        patient.setDepartmentName(patientDto.getDepartmentName());
+        patient.setDepartment(patientDto.getDepartment());
         return patient;
     }
 
@@ -20,7 +20,7 @@ public class PatientMapperImpl implements PatientMapper {
     public PatientDto toDto(Patient patient) {
         PatientDto patientDto = new PatientDto(patient.getId(), patient.getFirstName(), patient.getLastName(), patient.getPatronymic(),
                 patient.getAge(), patient.getSex());
-        patientDto.setDepartmentName(patient.getDepartmentName());
+        patientDto.setDepartment(patient.getDepartment());
         return patientDto;
     }
 
