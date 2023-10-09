@@ -24,7 +24,8 @@ public class Main {
                 6 - удалить пациента из отделения
                 7 - обновить название отделеня
                 8 - обновить пациента
-                9 - удалить отделение""");
+                9 - удалить отделение
+                10 - удалить пациента""");
     }
 
     static void createPatient(PatientController patientController) {
@@ -104,6 +105,21 @@ public class Main {
         }
         System.out.println("Успешно!");
     }
+    static void removePatient(PatientController patientController) {
+        System.out.println("Если хотите удалить пациента по его id, введите 1, если по полному имени, введите 2");
+        String s = in.next();
+        if (s.equals("1")) {
+            System.out.println("Введите id пациента в формате: 3");
+            String s1 = in.next();
+            patientController.removePatientById(Integer.parseInt(s1));
+        } else if (s.equals("2")) {
+            System.out.println("Введите полное имя пациента в формате: Иванов Иван Иванович");
+            in.nextLine();
+            String[] s1 = in.nextLine().split(" ");
+            patientController.removePatientByFullName(s1[1], s1[0], s1[2]);
+        }
+        System.out.println("Успешно!");
+    }
 
     static void removeDepartment(DepartmentController departmentController) {
         System.out.println("Если хотите удалить отделение по его id, введите 1, если по названию, введите 2");
@@ -178,6 +194,7 @@ public class Main {
                         case "7" -> updateDepartmentName(departmentController);
                         case "8" -> updatePatient(patientController);
                         case "9" -> removeDepartment(departmentController);
+                        case "10" -> removePatient(patientController);
                     }
                 }
             }

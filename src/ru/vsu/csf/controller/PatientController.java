@@ -22,6 +22,13 @@ public class PatientController {
         patients.add(patient);
     }
 
+    public void removePatientByFullName(String firstName, String lastName, String patronymic) {
+        Patient patient = patientService.removeByFullName(firstName, lastName, patronymic);
+    }
+    public void removePatientById(int id) {
+        Patient patient = patientService.removeById(id);
+    }
+
     public void updateFirstNameById(int id, String firstName) {
         patientService.updateFirstName(id, firstName);
     }

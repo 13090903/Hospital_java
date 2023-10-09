@@ -85,6 +85,6 @@ public class Patient {
                 ", patronymic='" + patronymic + '\'' +
                 ", age=" + age +
                 ", sex=" + sex +
-                ", department=" + department.getName();
+                ", department=" + (department != null ? department.getName() : "Нет");
     }
 }
