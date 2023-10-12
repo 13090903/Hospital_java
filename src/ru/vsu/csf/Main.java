@@ -17,9 +17,14 @@ public class Main {
     static Command[] commands = new Command[]{
             new CreatePatientCommand(),
             new CreateDepartmentCommand(),
-            new AddPatientToDepartmentCommand(),
             new ShowPatientsCommand(),
-            new ShowDepartmentsCommand()
+            new ShowDepartmentsCommand(),
+            new AddPatientToDepartmentCommand(),
+            new RemovePatientFromDepartmentCommand(),
+            new UpdateDepartmentCommand(),
+            new UpdatePatientCommand(),
+            new DeleteDepartmentCommand(),
+            new DeletePatientCommand()
     };
 
 
@@ -28,8 +33,21 @@ public class Main {
         Set<Department> departments = new HashSet<>();
         PatientController patientController = new PatientController(patients);
         DepartmentController departmentController = new DepartmentController(departments, patients);
-        for (Command command : commands) {
-            System.out.println(command.execute(in, departmentController, patientController));
+        System.out.println("""
+                1 - создать пациента
+                2 - создать отделение
+                3 - показать пациентов
+                4 - показать отделения
+                5 - добавить пациента в отделение
+                6 - удалить пациента из отделения
+                7 - обновить название отделеня
+                8 - обновить пациента
+                9 - удалить отделение
+                10 - удалить пациента""");
+        while (true) {
+            System.out.println("Введите номер команды ");
+            int i = in.nextInt();
+            System.out.println(commands[i - 1].execute(in, departmentController, patientController));
         }
     }
 }

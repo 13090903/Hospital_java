@@ -29,6 +29,7 @@ public class UpdatePatientCommand implements Command{
                 }
             } else if (s1.equals("2")) {
                 System.out.println("Введите полное имя пациента в формате: Иванов Иван Иванович");
+                in.nextLine();
                 String[] s2 = in.nextLine().split(" ");
                 System.out.println("Введите новое значение выбранного поля");
                 String s3 = in.next();
