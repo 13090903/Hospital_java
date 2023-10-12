@@ -2,13 +2,21 @@ package ru.vsu.csf.repository.impl;
 
 import ru.vsu.csf.model.Department;
 import ru.vsu.csf.repository.DepartmentRepository;
+import ru.vsu.csf.repository.HospitalRepository;
 
 import java.util.Set;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
     private final Set<Department> departments;
+    private static DepartmentRepositoryImpl instance;
+    public static DepartmentRepositoryImpl getInstance(Set<Department> departments) {
+        if (instance == null)
+            instance = new DepartmentRepositoryImpl(departments);
 
-    public DepartmentRepositoryImpl(Set<Department> departments) {
+        return instance;
+    }
+
+    private DepartmentRepositoryImpl(Set<Department> departments) {
         this.departments = departments;
     }
 
@@ -47,7 +55,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
-    public Set<Department> findByAll() {
+    public Set<Department> findAll() {
         return departments;
     }
 }

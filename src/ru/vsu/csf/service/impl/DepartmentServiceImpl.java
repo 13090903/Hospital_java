@@ -19,8 +19,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     public DepartmentServiceImpl(Set<Department> departments, Set<Patient> patients) {
-        departmentRepository = new DepartmentRepositoryImpl(departments);
-        patientRepository  = new PatientRepositoryImpl(patients);
+        departmentRepository = DepartmentRepositoryImpl.getInstance(departments);
+        patientRepository  = PatientRepositoryImpl.getInstance(patients);
     }
 
     private int currId = 0;
@@ -96,7 +96,6 @@ public class DepartmentServiceImpl implements DepartmentService {
             department.setNumberOfPatients(department.getNumberOfPatients() - 1);
             patient.setDepartment(null);
         }
-        //TODO: Иначе может быть бросать ошибку или что то еще делать
     }
 
 }

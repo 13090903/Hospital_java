@@ -19,7 +19,7 @@ public class PatientServiceImpl implements PatientService {
 
 
     public PatientServiceImpl(Set<Patient> patients) {
-        patientRepository = new PatientRepositoryImpl(patients);
+        patientRepository = PatientRepositoryImpl.getInstance(patients);
     }
     private int currId = 0;
 

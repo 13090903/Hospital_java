@@ -1,6 +1,7 @@
 package ru.vsu.csf.repository.impl;
 
 import ru.vsu.csf.model.Patient;
+import ru.vsu.csf.repository.HospitalRepository;
 import ru.vsu.csf.repository.PatientRepository;
 
 import java.util.Set;
@@ -8,7 +9,16 @@ import java.util.Set;
 public class PatientRepositoryImpl implements PatientRepository {
     private final Set<Patient> patients;
 
-    public PatientRepositoryImpl(Set<Patient> patients) {
+    private static PatientRepositoryImpl instance;
+
+    public static PatientRepositoryImpl getInstance(Set<Patient> patients) {
+        if (instance == null)
+            instance = new PatientRepositoryImpl(patients);
+
+        return instance;
+    }
+
+    private PatientRepositoryImpl(Set<Patient> patients) {
         this.patients = patients;
     }
 
