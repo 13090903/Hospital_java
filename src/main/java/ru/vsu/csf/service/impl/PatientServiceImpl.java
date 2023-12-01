@@ -78,7 +78,7 @@ public class PatientServiceImpl implements PatientService {
     public Patient deleteById(int id) {
         Patient patient = patientRepository.findById(id);
         Department department = patient.getDepartment();
-        if (department.getPatients().contains(patient)) {
+        if (department != null && department.getPatients().contains(patient)) {
             department.getPatients().remove(patient);
             department.setNumberOfPatients(department.getNumberOfPatients() - 1);
             patient.setDepartment(null);
