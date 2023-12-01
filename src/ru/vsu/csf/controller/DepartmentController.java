@@ -39,7 +39,7 @@ public class DepartmentController {
     }
 
     public void removeDepartmentById(int id) {
-        departmentService.removeById(id);
+        departmentService.deleteById(id);
     }
 
     public void removeDepartmentByName(String name) {

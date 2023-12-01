@@ -26,7 +26,7 @@ public class PatientController {
         Patient patient = patientService.removeByFullName(firstName, lastName, patronymic);
     }
     public void removePatientById(int id) {
-        Patient patient = patientService.removeById(id);
+        Patient patient = patientService.deleteById(id);
     }
 
     public void updateFirstNameById(int id, String firstName) {

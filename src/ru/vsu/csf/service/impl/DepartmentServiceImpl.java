@@ -40,7 +40,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department removeById(int id) {
+    public Department deleteById(int id) {
         for (Patient patient : patientRepository.findAll()) {
             Department d = patient.getDepartment();
             if (d.getId() == id) {

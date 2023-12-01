@@ -75,7 +75,7 @@ public class PatientServiceImpl implements PatientService {
 
 
     @Override
-    public Patient removeById(int id) {
+    public Patient deleteById(int id) {
         Patient patient = patientRepository.findById(id);
         Department department = patient.getDepartment();
         if (department.getPatients().contains(patient)) {
