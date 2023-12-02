@@ -15,12 +15,10 @@ import java.util.Set;
 
 public class DepartmentServiceImpl implements DepartmentService {
     private final DepartmentRepository departmentRepository;
-    private final PatientRepository patientRepository;
 
 
     public DepartmentServiceImpl() {
         departmentRepository = DepartmentRepositoryImpl.getInstance();
-        patientRepository  = PatientRepositoryImpl.getInstance();
     }
 
     @Override
@@ -40,7 +38,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public Set<Department> findAll() {
-        return departmentRepository.findAll();
+        Set<Department> departments = departmentRepository.findAll();
+        for (Department department : departments) {
+            int count = departmentRepository.countNumberOfPatients(department.getId());
+            department.setNumberOfPatients(count);
+        }
+        return departments;
     }
 
     @Override
@@ -75,25 +78,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Override
     public void addPatient(int departmentId, int patientId) {
-        Department department = departmentRepository.findById(departmentId);
-        Patient patient = patientRepository.findById(patientId);
-        if (department.getPatients().contains(patient)) {
-            return;
-        }
-        patient.setDepartment(department);
-        department.getPatients().add(patient);
-        department.setNumberOfPatients(department.getNumberOfPatients() + 1);
+        departmentRepository.addPatient(departmentId, patientId);
     }
 
     @Override
     public void removePatient(int departmentId, int patientId) {
-        Department department = departmentRepository.findById(departmentId);
-        Patient patient = patientRepository.findById(patientId);
-        if (department.getPatients().contains(patient)) {
-            department.getPatients().remove(patient);
-            department.setNumberOfPatients(department.getNumberOfPatients() - 1);
-            patient.setDepartment(null);
-        }
+        departmentRepository.removePatient(departmentId, patientId);
     }
 
 }

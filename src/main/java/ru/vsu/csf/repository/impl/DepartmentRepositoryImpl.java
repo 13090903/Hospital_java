@@ -9,13 +9,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
-//    private final Set<Department> departments;
+    //    private final Set<Department> departments;
     private static DepartmentRepositoryImpl instance;
     private static ConnectionManager connectionManager;
+
+    //    private static PatientRepositoryImpl patientRepository;
     public static DepartmentRepositoryImpl getInstance() {
         if (instance == null) {
             instance = new DepartmentRepositoryImpl();
             connectionManager = ConnectionManager.getInstance();
+//            patientRepository  = PatientRepositoryImpl.getInstance();
         }
 
         return instance;
@@ -38,14 +41,13 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
         }
         return null;
     }
+
     private Department getDepartment(ResultSet rs) {
         try {
             int id = rs.getInt(1);
             String name = rs.getString(2);
-            int numberOfPatients = rs.getInt(3);
             Department department = new Department(name);
             department.setId(id);
-            department.setNumberOfPatients(numberOfPatients);
             return department;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -87,11 +89,42 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
+    public int countNumberOfPatients(int id) {
+        try {
+            ResultSet rs = connectionManager.executeSelect("SELECT COUNT(*) FROM `patients` WHERE department_id = " + id);
+            rs.next();
+            int count = rs.getInt(1);
+            rs.close();
+            return count;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    @Override
+    public void addPatient(int departmentId, int patientId) {
+        try {
+            connectionManager.executeUpdate("UPDATE `patients` SET `department_id`=" + departmentId + " WHERE id = " + patientId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
+    public void removePatient(int departmentId, int patientId) {
+        try {
+            connectionManager.executeUpdate("UPDATE `patients` SET `department_id`=" + null + " WHERE id = " + patientId);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    @Override
     public void create(Department department) {
         try {
             connectionManager.executeUpdate("INSERT INTO `departments`(`id`, `name`) VALUES ( "
                     + department.getId() + ", '" + department.getName() + "')");
-            return;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -99,7 +132,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
 
     @Override
     public Set<Department> findAll() {
-        try{
+        try {
             Set<Department> departments = new HashSet<>();
             ResultSet rs = connectionManager.executeSelect("SELECT * FROM `departments`");
             while (!rs.isClosed() && rs.next()) {
@@ -107,7 +140,7 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
             }
             rs.close();
             return departments;
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         return null;
