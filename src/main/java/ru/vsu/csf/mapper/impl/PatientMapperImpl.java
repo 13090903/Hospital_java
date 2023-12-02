@@ -10,7 +10,7 @@ import java.util.Set;
 public class PatientMapperImpl implements PatientMapper {
     @Override
     public Patient fromDto(PatientDto patientDto) {
-        Patient patient = new Patient(patientDto.getId(), patientDto.getFirstName(), patientDto.getLastName(), patientDto.getPatronymic(),
+        Patient patient = new Patient(patientDto.getFirstName(), patientDto.getLastName(), patientDto.getPatronymic(),
                 patientDto.getAge(), patientDto.getSex());
         patient.setDepartment(patientDto.getDepartment());
         return patient;

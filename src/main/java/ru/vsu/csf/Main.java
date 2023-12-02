@@ -31,8 +31,8 @@ public class Main {
     public static void main(String[] args) {
         Set<Patient> patients = new HashSet<>();
         Set<Department> departments = new HashSet<>();
-        PatientController patientController = new PatientController(patients);
-        DepartmentController departmentController = new DepartmentController(departments, patients);
+        PatientController patientController = new PatientController();
+        DepartmentController departmentController = new DepartmentController();
         System.out.println("""
                 1 - создать пациента
                 2 - создать отделение

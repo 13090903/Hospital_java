@@ -6,7 +6,7 @@ import ru.vsu.csf.model.Department;
 
 import java.util.Scanner;
 
-public class ShowDepartmentsCommand implements Command{
+public class ShowDepartmentsCommand implements Command {
 
     @Override
     public String execute(Scanner in, DepartmentController departmentController, PatientController patientController) {

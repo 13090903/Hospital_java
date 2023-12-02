@@ -18,20 +18,19 @@ public class PatientServiceImpl implements PatientService {
     private final PatientRepository patientRepository;
 
 
-    public PatientServiceImpl(Set<Patient> patients) {
-        patientRepository = PatientRepositoryImpl.getInstance(patients);
-    }
-    private int currId = 0;
-
-    @Override
-    public Patient create(String firstName, String lastName, String patronymic, int age, Sex sex) {
-        return new Patient(currId++, firstName, lastName, patronymic, age, sex);
+    public PatientServiceImpl() {
+        patientRepository = PatientRepositoryImpl.getInstance();
     }
 
     @Override
-    public Patient findByFullName(String firstName, String lastName, String patronymic) {
-        return patientRepository.findByFullName(firstName, lastName, patronymic);
+    public void create(String firstName, String lastName, String patronymic, int age, Sex sex) {
+        patientRepository.create(new Patient(firstName, lastName, patronymic, age, sex));
     }
+
+//    @Override
+//    public Patient findByFullName(String firstName, String lastName, String patronymic) {
+//        return patientRepository.findByFullName(firstName, lastName, patronymic);
+//    }
 
     @Override
     public Patient findById(int id) {
@@ -39,38 +38,43 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public Patient updateFirstName(int patientId, String firstName) {
+    public Set<Patient> findAll() {
+        return patientRepository.findAll();
+    }
+
+    @Override
+    public void updateFirstName(int patientId, String firstName) {
         Patient patient = patientRepository.findById(patientId);
         patient.setFirstName(firstName);
-        return patient;
+        patientRepository.update(patientId, patient);
     }
 
     @Override
-    public Patient updateLastName(int patientId, String lastName) {
+    public void updateLastName(int patientId, String lastName) {
         Patient patient = patientRepository.findById(patientId);
         patient.setLastName(lastName);
-        return patient;
+        patientRepository.update(patientId, patient);
     }
 
     @Override
-    public Patient updatePatronymic(int patientId, String patronymic) {
+    public void updatePatronymic(int patientId, String patronymic) {
         Patient patient = patientRepository.findById(patientId);
         patient.setPatronymic(patronymic);
-        return patient;
+        patientRepository.update(patientId, patient);
     }
 
     @Override
-    public Patient updateAge(int patientId, int age) {
+    public void updateAge(int patientId, int age) {
         Patient patient = patientRepository.findById(patientId);
         patient.setAge(age);
-        return patient;
+        patientRepository.update(patientId, patient);
     }
 
     @Override
-    public Patient updateSex(int patientId, Sex sex) {
+    public void updateSex(int patientId, Sex sex) {
         Patient patient = patientRepository.findById(patientId);
         patient.setSex(sex);
-        return patient;
+        patientRepository.update(patientId, patient);
     }
 
 

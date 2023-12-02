@@ -8,18 +8,15 @@ import ru.vsu.csf.service.impl.PatientServiceImpl;
 import java.util.Set;
 
 public class PatientController {
-    protected Set<Patient> patients;
     private final PatientService patientService;
 
 
-    public PatientController(Set<Patient> patients) {
-        this.patients = patients;
-        this.patientService = new PatientServiceImpl(patients);
+    public PatientController() {
+        this.patientService = new PatientServiceImpl();
     }
 
     public void createPatient(String firstName, String lastName, String patronymic, int age, Sex sex) {
-        Patient patient = patientService.create(firstName, lastName, patronymic, age, sex);
-        patients.add(patient);
+        patientService.create(firstName, lastName, patronymic, age, sex);
     }
 
     public void removePatientByFullName(String firstName, String lastName, String patronymic) {
@@ -49,28 +46,28 @@ public class PatientController {
         patientService.updateSex(id, sex);
     }
 
-    public void updateFirstNameByFullName(String firstName, String lastName, String patronymic, String newFirstName) {
-        patientService.updateFirstName(patientService.findByFullName(firstName, lastName, patronymic).getId(), newFirstName);
-    }
+//    public void updateFirstNameByFullName(String firstName, String lastName, String patronymic, String newFirstName) {
+//        patientService.updateFirstName(patientService.findByFullName(firstName, lastName, patronymic).getId(), newFirstName);
+//    }
 
-    public void updateLastNameByFullName(String firstName, String lastName, String patronymic, String newLastName) {
-        patientService.updateLastName(patientService.findByFullName(firstName, lastName, patronymic).getId(), newLastName);
-    }
+//    public void updateLastNameByFullName(String firstName, String lastName, String patronymic, String newLastName) {
+//        patientService.updateLastName(patientService.findByFullName(firstName, lastName, patronymic).getId(), newLastName);
+//    }
 
-    public void updatePatronymicByFullName(String firstName, String lastName, String patronymic, String newPatronymic) {
-        patientService.updatePatronymic(patientService.findByFullName(firstName, lastName, patronymic).getId(), newPatronymic);
-    }
+//    public void updatePatronymicByFullName(String firstName, String lastName, String patronymic, String newPatronymic) {
+//        patientService.updatePatronymic(patientService.findByFullName(firstName, lastName, patronymic).getId(), newPatronymic);
+//    }
 
-    public void updateAgeByFullName(String firstName, String lastName, String patronymic, int age) {
-        patientService.updateAge(patientService.findByFullName(firstName, lastName, patronymic).getId(), age);
-    }
+//    public void updateAgeByFullName(String firstName, String lastName, String patronymic, int age) {
+//        patientService.updateAge(patientService.findByFullName(firstName, lastName, patronymic).getId(), age);
+//    }
 
-    public void updateSexByFullName(String firstName, String lastName, String patronymic, Sex sex) {
-        patientService.updateSex(patientService.findByFullName(firstName, lastName, patronymic).getId(), sex);
-    }
+//    public void updateSexByFullName(String firstName, String lastName, String patronymic, Sex sex) {
+//        patientService.updateSex(patientService.findByFullName(firstName, lastName, patronymic).getId(), sex);
+//    }
 
 
     public Set<Patient> showPatients() {
-        return patients;
+        return patientService.findAll();
     }
 }

@@ -8,18 +8,15 @@ import ru.vsu.csf.service.impl.DepartmentServiceImpl;
 import java.util.Set;
 
 public class DepartmentController {
-    private final Set<Department> departments;
     private final DepartmentService departmentService;
 
 
-    public DepartmentController(Set<Department> departments, Set<Patient> patients) {
-        this.departments = departments;
-        departmentService = new DepartmentServiceImpl(departments, patients);
+    public DepartmentController() {
+        departmentService = new DepartmentServiceImpl();
     }
 
     public void createDepartment(String name) {
-        Department department = departmentService.create(name);
-        departments.add(department);
+        departmentService.create(name);
     }
 
     public void addPatientByIds(int departmentId, int patientId) {
@@ -55,6 +52,6 @@ public class DepartmentController {
     }
 
     public Set<Department> showDepartments() {
-        return departments;
+        return departmentService.findAll();
     }
 }

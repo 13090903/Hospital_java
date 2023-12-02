@@ -18,15 +18,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     private final PatientRepository patientRepository;
 
 
-    public DepartmentServiceImpl(Set<Department> departments, Set<Patient> patients) {
-        departmentRepository = DepartmentRepositoryImpl.getInstance(departments);
-        patientRepository  = PatientRepositoryImpl.getInstance(patients);
+    public DepartmentServiceImpl() {
+        departmentRepository = DepartmentRepositoryImpl.getInstance();
+        patientRepository  = PatientRepositoryImpl.getInstance();
     }
 
-    private int currId = 0;
     @Override
-    public Department create(String name) {
-        return new Department(currId++, name);
+    public void create(String name) {
+        departmentRepository.create(new Department(name));
     }
 
     @Override
@@ -40,39 +39,38 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public Set<Department> findAll() {
+        return departmentRepository.findAll();
+    }
+
+    @Override
     public Department deleteById(int id) {
-        for (Patient patient : patientRepository.findAll()) {
-            Department d = patient.getDepartment();
-            if (d.getId() == id) {
-                patient.setDepartment(null);
-            }
-        }
         return departmentRepository.deleteById(id);
     }
 
     @Override
     public Department removeByName(String name) {
-        for (Patient patient : patientRepository.findAll()) {
-            Department d = patient.getDepartment();
-            if (d != null && d.getName().equals(name)) {
-                patient.setDepartment(null);
-            }
-        }
-        return departmentRepository.deleteByName(name);
+//        for (Patient patient : patientRepository.findAll()) {
+//            Department d = patient.getDepartment();
+//            if (d != null && d.getName().equals(name)) {
+//                patient.setDepartment(null);
+//            }
+//        }
+//        return departmentRepository.deleteByName(name);
+        return null;
     }
 
     @Override
-    public Department updateById(int id, String name) {
-        Department department = findById(id);
-        department.setName(name);
-        return department;
+    public void updateById(int id, String name) {
+        departmentRepository.update(id, new Department(name));
     }
 
     @Override
     public Department updateByName(String name, String newName) {
-        Department department = findByName(name);
-        department.setName(newName);
-        return department;
+//        Department department = findByName(name);
+//        department.setName(newName);
+//        return department;
+        return null;
     }
 
     @Override

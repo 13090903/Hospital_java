@@ -5,12 +5,12 @@ import ru.vsu.csf.model.Patient;
 
 public interface PatientService extends HospitalService<Patient>{
 
-    Patient create(String firstName, String lastName, String patronymic, int age, Sex sex);
-    Patient findByFullName(String firstName, String lastName, String patronymic);
-    Patient updateFirstName(int id, String firstName);
-    Patient updateLastName(int id, String lastName);
-    Patient updatePatronymic(int id, String patronymic);
-    Patient updateAge(int id, int age);
-    Patient updateSex(int id, Sex sex);
+    void create(String firstName, String lastName, String patronymic, int age, Sex sex);
+//    void findByFullName(String firstName, String lastName, String patronymic);
+    void updateFirstName(int id, String firstName);
+    void updateLastName(int id, String lastName);
+    void updatePatronymic(int id, String patronymic);
+    void updateAge(int id, int age);
+    void updateSex(int id, Sex sex);
     Patient removeByFullName(String firstName, String lastName, String patronymic);
 }

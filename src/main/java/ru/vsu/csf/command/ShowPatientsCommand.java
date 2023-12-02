@@ -2,6 +2,7 @@ package ru.vsu.csf.command;
 
 import ru.vsu.csf.controller.DepartmentController;
 import ru.vsu.csf.controller.PatientController;
+import ru.vsu.csf.model.Department;
 import ru.vsu.csf.model.Patient;
 
 import java.util.Scanner;

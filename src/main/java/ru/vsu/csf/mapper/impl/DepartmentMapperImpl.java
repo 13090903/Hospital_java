@@ -10,7 +10,7 @@ import java.util.Set;
 public class DepartmentMapperImpl implements DepartmentMapper {
     @Override
     public Department fromDto(DepartmentDto departmentDto) {
-        Department department = new Department(departmentDto.getId(), departmentDto.getName());
+        Department department = new Department(departmentDto.getName());
         department.setNumberOfPatients(departmentDto.getNumberOfPatients());
         department.setPatients(departmentDto.getPatients());
         return department;

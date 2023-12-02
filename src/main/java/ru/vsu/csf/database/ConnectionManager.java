@@ -5,9 +5,9 @@ import java.util.Properties;
 
 public class ConnectionManager {
     private static ConnectionManager instance;
-    private static final String DB_URL = "jdbc:mysql://localhost:3307/bank_db";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/hospital_db";
     private static final String DB_USER = "root";
-    private static final String DB_PASS = "1111";
+    private static final String DB_PASS = "";
 
     // JDBC variables for opening and managing connection
     private static Connection connection;
