@@ -32,10 +32,6 @@ public class PatientRepositoryImpl implements PatientRepository {
         return instance;
     }
 
-//    private PatientRepositoryImpl(Set<Patient> patients) {
-//        this.patients = patients;
-//    }
-
     @Override
     public Patient findById(int id) {
         try {
@@ -83,22 +79,12 @@ public class PatientRepositoryImpl implements PatientRepository {
     }
 
     @Override
-    public Patient deleteById(int id) {
-        Patient patient = findById(id);
+    public void deleteById(int id) {
         try {
             connectionManager.executeUpdate("DELETE FROM `patients` WHERE id = " + id);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return patient;
-    }
-
-    @Override
-    public Patient deleteByFullName(String firstName, String lastName, String patronymic) {
-//        Patient patient = findByFullName(firstName, lastName, patronymic);
-//        patients.remove(patient);
-//        return patient;
-        return null;
     }
 
     @Override
@@ -130,15 +116,5 @@ public class PatientRepositoryImpl implements PatientRepository {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    @Override
-    public Patient findByFullName(String firstName, String lastName, String patronymic) {
-//        for (Patient patient : patients) {
-//            if (patient.getFirstName().equals(firstName) && patient.getLastName().equals(lastName) && patient.getPatronymic().equals(patronymic)) {
-//                return patient;
-//            }
-//        }
-        return null;
     }
 }

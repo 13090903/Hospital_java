@@ -9,24 +9,17 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DepartmentRepositoryImpl implements DepartmentRepository {
-    //    private final Set<Department> departments;
     private static DepartmentRepositoryImpl instance;
     private static ConnectionManager connectionManager;
 
-    //    private static PatientRepositoryImpl patientRepository;
     public static DepartmentRepositoryImpl getInstance() {
         if (instance == null) {
             instance = new DepartmentRepositoryImpl();
             connectionManager = ConnectionManager.getInstance();
-//            patientRepository  = PatientRepositoryImpl.getInstance();
         }
 
         return instance;
     }
-
-//    private DepartmentRepositoryImpl(Set<Department> departments) {
-//        this.departments = departments;
-//    }
 
     @Override
     public Department findById(int id) {
@@ -56,22 +49,12 @@ public class DepartmentRepositoryImpl implements DepartmentRepository {
     }
 
     @Override
-    public Department deleteById(int id) {
-        Department department = findById(id);
+    public void deleteById(int id) {
         try {
             connectionManager.executeUpdate("DELETE FROM `departments` WHERE id = " + id);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return department;
-    }
-
-    @Override
-    public Department deleteByName(String name) {
-//        Department department = findByName(name);
-//        departments.remove(department);
-//        return department;
-        return null;
     }
 
     @Override

@@ -13,7 +13,6 @@ public class Patient {
     private Department department;
 
     public Patient(String firstName, String lastName, String patronymic, int age, Sex sex) {
-        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.patronymic = patronymic;

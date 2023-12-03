@@ -1,7 +1,6 @@
 package ru.vsu.csf.controller;
 
 import ru.vsu.csf.model.Department;
-import ru.vsu.csf.model.Patient;
 import ru.vsu.csf.service.DepartmentService;
 import ru.vsu.csf.service.impl.DepartmentServiceImpl;
 
@@ -39,16 +38,8 @@ public class DepartmentController {
         departmentService.deleteById(id);
     }
 
-    public void removeDepartmentByName(String name) {
-        departmentService.removeByName(name);
-    }
-
     public void updateDepartmentById(int id, String name) {
         departmentService.updateById(id, name);
-    }
-
-    public void updateDepartmentByName(String name, String newName) {
-        departmentService.updateByName(name, newName);
     }
 
     public Set<Department> showDepartments() {

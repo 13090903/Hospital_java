@@ -29,11 +29,11 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Set<Patient> patients = new HashSet<>();
-        Set<Department> departments = new HashSet<>();
         PatientController patientController = new PatientController();
         DepartmentController departmentController = new DepartmentController();
-        System.out.println("""
+        String help = """
+                -1 - прекратить работу
+                0 - посмотреть команды
                 1 - создать пациента
                 2 - создать отделение
                 3 - показать пациентов
@@ -43,11 +43,18 @@ public class Main {
                 7 - обновить название отделения
                 8 - обновить пациента
                 9 - удалить отделение
-                10 - удалить пациента""");
-        while (true) {
+                10 - удалить пациента""";
+        System.out.println(help);
+        System.out.println("Введите номер команды ");
+        int c = in.nextInt();
+        while (c != -1) {
+            if (c == 0) {
+                System.out.println(help);
+            } else {
+                System.out.println(commands[c - 1].execute(in, departmentController, patientController));
+            }
             System.out.println("Введите номер команды ");
-            int i = in.nextInt();
-            System.out.println(commands[i - 1].execute(in, departmentController, patientController));
+            c = in.nextInt();
         }
     }
 }
