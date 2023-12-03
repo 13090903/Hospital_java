@@ -2,13 +2,13 @@ package ru.vsu.csf.repository.impl;
 
 import ru.vsu.csf.database.ConnectionManager;
 import ru.vsu.csf.enums.Sex;
-import ru.vsu.csf.model.Department;
 import ru.vsu.csf.model.Patient;
-import ru.vsu.csf.repository.HospitalRepository;
 import ru.vsu.csf.repository.PatientRepository;
 
 import java.sql.ResultSet;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class PatientRepositoryImpl implements PatientRepository {
@@ -17,6 +17,8 @@ public class PatientRepositoryImpl implements PatientRepository {
     private static PatientRepositoryImpl instance;
 
     private static ConnectionManager connectionManager;
+
+    private static final Map<Integer, Integer> patientDepartmentMap = new HashMap<>();
 
     private static DepartmentRepositoryImpl departmentRepository;
 
@@ -52,9 +54,10 @@ public class PatientRepositoryImpl implements PatientRepository {
     public void create(Patient patient) {
         try {
             connectionManager.executeUpdate("INSERT INTO `patients`(`id`, `first_name`, `last_name`, `patronymic`, `age`, `sex`) VALUES ( "
-                    + patient.getId() + ", '" + patient.getFirstName() + "', '" + patient.getLastName() + "', '" + patient.getPatronymic() + "', " + patient.getAge() + ", '" + patient.getSex() + "')");
+                    + patient.getId() + ", '" + patient.getFirstName() + "', '"
+                    + patient.getLastName() + "', '" + patient.getPatronymic()
+                    + "', " + patient.getAge() + ", '" + patient.getSex() + "')");
 
-            return;
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -71,9 +74,7 @@ public class PatientRepositoryImpl implements PatientRepository {
             int departmentId = rs.getInt(7);
             Patient patient = new Patient(firstName, lastName, patronymic, age, sex);
             patient.setId(id);
-            if (departmentId != 0) {
-                patient.setDepartment(departmentRepository.findById(departmentId));
-            }
+            patientDepartmentMap.put(id, departmentId);
             return patient;
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -109,6 +110,11 @@ public class PatientRepositoryImpl implements PatientRepository {
                 patients.add(getPatient(rs));
             }
             rs.close();
+            for (Patient patient : patients) {
+                if (patientDepartmentMap.get(patient.getId()) != 0) {
+                    patient.setDepartment(departmentRepository.findById(patientDepartmentMap.get(patient.getId())));
+                }
+            }
             return patients;
         } catch (Exception e){
             System.out.println(e.getMessage());
